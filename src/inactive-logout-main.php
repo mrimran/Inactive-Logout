@@ -108,7 +108,7 @@ final class Inactive__Logout_Main {
 			update_option( '__ina_popup_overlay_color', '#000000' );
 		}
 
-		if( is_user_logged_in() ) {
+		//if( is_user_logged_in() ) {//disabling login restriction
 			if ( $this->ina_supportedVersion( 'wordpress' ) && $this->ina_supportedVersion( 'php' ) ) {
 				$this->ina_addHooks();
 				$this->ina_loadDependencies();
@@ -117,7 +117,7 @@ final class Inactive__Logout_Main {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
 				$this->ina_display_notSupportedError();
 			}
-		}
+		//}
 
 	}
 
@@ -162,12 +162,14 @@ final class Inactive__Logout_Main {
 	 * Loading Backend Scripts
 	 */
 	public function ina_adminScripts($hook_suffix) {
-		if( is_user_logged_in() ) {
+		//if( is_user_logged_in() ) {//disabling logged in restriction
 			$helper = Inactive__logout__Helpers::instance();
 			$disable_timeoutjs = $helper->ina_check_user_role();
-			if( !$disable_timeoutjs ) {
+			//if( !$disable_timeoutjs ) {//introducing my own check to keep this popup disabled on admin end
+			if(!is_admin()) {
 				wp_enqueue_script( INACTIVE_LOGOUT_SLUG . '-js', INACTIVE_LOGOUT_ASSETS_URL . 'js/inactive-logout.js', array('jquery'), time(), true );
 			}
+			//}
 
 			if( $hook_suffix == 'settings_page_inactive-logout' ) {
 				wp_enqueue_script( INACTIVE_LOGOUT_SLUG . '-inactive-logoutonly-js', INACTIVE_LOGOUT_ASSETS_URL . 'js/inactive-logout-other.js', array('jquery', 'wp-color-picker'), time(), true );
@@ -179,7 +181,7 @@ final class Inactive__Logout_Main {
 			wp_enqueue_style( INACTIVE_LOGOUT_SLUG, INACTIVE_LOGOUT_ASSETS_URL . 'css/inactive-logout.css' , false, time() );
 
 			wp_localize_script( INACTIVE_LOGOUT_SLUG .'-js', 'ina_ajax', array( 'ajaxurl' => admin_url('admin-ajax.php'), 'ina_security' => wp_create_nonce( "_checklastSession" ) ));
-		}
+		//}
 	}
 
 	/**
