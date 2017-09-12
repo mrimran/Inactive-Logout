@@ -1,5 +1,5 @@
 {
-  "name": "mrimran/Inactive-Alert-Plus-Logout",
+  "name": "mrimran/Inactive-Alert-Without-Logout",
   "description": "Modified version of Inactive Logout to disable Inactive Popup from Admin plus displaying that popup on Frontend whenever there is no activity for certain period of time. So this way plugin works for both logged in and not logged in users :)",
   "keywords": ["wordpress", "plugin", "Inactive-Logout"],
   "homepage": "https://github.com/mrimran/Inactive-Logout",
